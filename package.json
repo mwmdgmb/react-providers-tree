@@ -1,0 +1,35 @@
+{
+  "name": "react-providers-tree",
+  "version": "1.0.0",
+  "description": "A utility to build a tree of React providers with their props",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "jest"
+  },
+  "keywords": [
+    "react",
+    "providers",
+    "context",
+    "tree",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mwmdgmb/react-providers-tree.git"
+  }
+} 
