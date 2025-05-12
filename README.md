@@ -1,13 +1,19 @@
+Here's an updated and polished version of your `README.md` with clearer structure, consistent formatting, improved grammar, and better code formatting. I've also added a small enhancement for clarity on the usage of `satisfies` and other best practices:
+
+---
+
 # 🧩 `buildProvidersTree` – Compose Multiple React Context Providers Elegantly
 
-A tiny utility that helps you compose multiple React providers into a single clean component.
+A tiny utility to help you **compose multiple React providers** into a single clean component — perfect for organizing your root component tree.
+
+---
 
 ## 🚀 Features
 
-- ✅ Fully type-safe (no `any`)
-- ✅ Simple, declarative API
-- ✅ Works perfectly with TypeScript's `satisfies` keyword
-- ✅ Cleaner root setup for your app
+* ✅ Fully type-safe (no `any`)
+* ✅ Simple, declarative API
+* ✅ Works seamlessly with TypeScript’s `satisfies` keyword
+* ✅ Cleans up your root layout logic
 
 ---
 
@@ -21,9 +27,9 @@ yarn add build-providers-tree
 
 ---
 
-# With buildProvidersTree
-
 ## ✨ Usage Example
+
+### ✅ With `buildProvidersTree`
 
 ```tsx
 import { StrictMode } from "react";
@@ -31,15 +37,13 @@ import { createRoot } from "react-dom/client";
 import { buildProvidersTree, ProviderComponent } from "build-providers-tree";
 
 import App from "./App";
-import { ThemeProvider } from "./*";
-import { TanStackQueryProvider } from "./*";
-import { ToasterProvider } from "./*";
+import { ThemeProvider } from "./providers/ThemeProvider";
+import { TanStackQueryProvider } from "./providers/TanStackQueryProvider";
+import { ToasterProvider } from "./providers/ToasterProvider";
 
 const Providers = buildProvidersTree([
   [ThemeProvider, {}] satisfies ProviderComponent<typeof ThemeProvider>,
-  [TanStackQueryProvider, {}] satisfies ProviderComponent<
-    typeof TanStackQueryProvider
-  >,
+  [TanStackQueryProvider, {}] satisfies ProviderComponent<typeof TanStackQueryProvider>,
   [ToasterProvider, {}] satisfies ProviderComponent<typeof ToasterProvider>,
 ] as const);
 
@@ -54,17 +58,18 @@ root.render(
 );
 ```
 
-# without buildProvidersTree
+---
 
-````tsx
+### ❌ Without `buildProvidersTree`
+
+```tsx
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { buildProvidersTree, ProviderComponent } from "build-providers-tree";
 
 import App from "./App";
-import { ThemeProvider } from "./*";
-import { TanStackQueryProvider } from "./*";
-import { ToasterProvider } from "./*";
+import { ThemeProvider } from "./providers/ThemeProvider";
+import { TanStackQueryProvider } from "./providers/TanStackQueryProvider";
+import { ToasterProvider } from "./providers/ToasterProvider";
 
 const root = createRoot(document.getElementById("root")!);
 
@@ -79,6 +84,7 @@ root.render(
     </ThemeProvider>
   </StrictMode>
 );
+```
 
 ---
 
@@ -90,13 +96,14 @@ Wraps multiple providers in a nested tree.
 
 #### Parameters
 
-* `providers` – A readonly array of tuples in the form of:
+```ts
+buildProvidersTree([
+  [ProviderComponent, props],
+  ...
+] as const);
+```
 
-  ```ts
-  [ProviderComponent, props]
-````
-
-Each item must satisfy the `ProviderComponent<T>` type, ensuring props are validated against each component’s expected props.
+Each tuple must satisfy `ProviderComponent<T>`, ensuring props are validated against each provider’s expected props.
 
 ---
 
@@ -109,34 +116,34 @@ type ProviderComponent<T extends React.ElementType> = [
 ];
 ```
 
-You can use `satisfies` to make TypeScript enforce the prop types of each provider.
+Using `satisfies ProviderComponent<typeof X>` ensures strict type safety for each provider and its props.
 
 ---
 
 ## 🛡️ Type Safety Tips
 
-- Always use `as const` to preserve the tuple structure.
-- Use `satisfies ProviderComponent<typeof X>` to get full type-checking on props.
-- Supports any provider component that accepts `children`.
+* ✅ Use `as const` on the providers array to preserve the tuple structure.
+* ✅ Use `satisfies` to enforce prop types at compile time.
+* ✅ Any React provider that accepts `children` will work.
 
 ---
 
-## 🧪 Tested With
+## ✅ Tested With
 
-- `styled-components` ThemeProvider
-- `@tanstack/react-query` QueryClientProvider
-- Custom context providers
+* `styled-components` `ThemeProvider`
+* `@tanstack/react-query` `QueryClientProvider`
+* Custom React context providers
 
 ---
 
-## 📁 Directory Structure Suggestion
+## 📁 Suggested Directory Structure
 
 ```
 src/
 │
 ├── providers/
 │   ├── buildProvidersTree.ts
-│   └── index.ts // exports composed Providers
+│   └── index.ts      # exports composed Providers
 │
 ├── App.tsx
 └── main.tsx
@@ -150,4 +157,4 @@ MIT © \[Mohammad Garmabi]
 
 ---
 
-Would you like me to also generate the `package.json`, `tsconfig.json`, and entry files for publishing this as a real npm package?
+Would you like me to generate the `package.json`, `tsconfig.json`, and entry files to publish this as a complete NPM package?
