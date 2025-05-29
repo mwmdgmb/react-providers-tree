@@ -5,8 +5,10 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsup src/index.tsx --format cjs,esm --dts --clean --minify --treeshake",
+    "dev": "tsup src/index.tsx --format cjs,esm --dts --watch",
     "prepare": "npm run build",
+    "type-check": "tsc --noEmit",
     "test": "jest"
   },
   "keywords": [
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "@types/react": "^18.2.0",
+    "tsup": "^8.5.0",
     "typescript": "^5.0.0"
   },
   "files": [
